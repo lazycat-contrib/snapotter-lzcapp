@@ -17,11 +17,11 @@ application:
             hooks:
               fileSystemAccess: true
               fileInput: true
-
 services:
   snapotter:
     # snapotter/snapotter:2.2.0
-    image: snapotter/snapotter:2.2.0
+    # upstream: snapotter/snapotter:2.2.0
+    image: registry.lazycat.cloud/czyt/snapotter/snapotter:bbee87b874c21bd6
     environment:
       - PORT=1349
       - AUTH_ENABLED=true
@@ -75,7 +75,6 @@ services:
       start_period: 60s
       retries: 3
     shm_size: 2gb
-
 usage: |
   Open SnapOtter from the launcher and use Sign in with SSO.
   The local admin account is still created as a fallback from the setup wizard username and password.
