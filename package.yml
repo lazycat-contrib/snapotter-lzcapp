@@ -1,0 +1,20 @@
+package: community.lazycat.app.snapotter
+version: 2.2.0
+name: SnapOtter
+description: Self-hosted file-processing suite for images, video, audio, PDFs, documents, OCR, transcription, and local AI tools.
+author: snapotter-hq
+license: AGPL-3.0
+homepage: https://github.com/snapotter-hq/SnapOtter
+min_os_version: 1.5.0
+locales:
+  zh:
+    name: SnapOtter
+    description: 自托管文件处理套件，支持图片、视频、音频、PDF、文档、OCR、转录和本地 AI 工具。
+  en:
+    name: SnapOtter
+    description: Self-hosted file-processing suite for images, video, audio, PDFs, documents, OCR, transcription, and local AI tools.
+permissions:
+  required:
+    - net.internet
+    - document.read
+    - document.write

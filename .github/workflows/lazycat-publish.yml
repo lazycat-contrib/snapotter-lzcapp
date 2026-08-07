@@ -1,0 +1,28 @@
+name: Publish LazyCat LPK
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  lazycat:
+    uses: ca-x/lazycat-github-action/.github/workflows/lazycat.yml@v1
+    with:
+      operation: auto
+      config: .github/lazycat-action.yml
+      versioned-release-asset: true
+      changelog: ${{ github.event.head_commit.message || github.ref_name }}
+    secrets:
+      LZC_API_HOST: ${{ secrets.LZC_API_HOST }}
+      LZC_API_TOKEN: ${{ secrets.LZC_API_TOKEN }}
+      LAZYCAT_TOKEN: ${{ secrets.LAZYCAT_TOKEN }}
+      APPSTORE_URL: ${{ secrets.APPSTORE_URL }}
+      APPSTORE_TOKEN: ${{ secrets.APPSTORE_TOKEN }}
+      APP_ID: ${{ secrets.APP_ID }}
+      PRIVATE_STORE_GROUP_CODES: ${{ secrets.PRIVATE_STORE_GROUP_CODES }}

@@ -1,0 +1,66 @@
+params:
+  - id: admin_username
+    type: string
+    name: "Admin Username"
+    description: "Local fallback administrator username."
+    default_value: "admin"
+    optional: false
+  - id: admin_password
+    type: secret
+    name: "Admin Password"
+    description: "Local fallback administrator password. OIDC is the preferred login path."
+    default_value: "$random(len=20)"
+    optional: false
+  - id: oidc_default_role
+    type: string
+    name: "OIDC Default Role"
+    description: "Role assigned to newly created OIDC users: admin, editor, or user."
+    default_value: "user"
+    optional: true
+  - id: oidc_provider_name
+    type: string
+    name: "OIDC Provider Name"
+    description: "Display name on SnapOtter's SSO login button."
+    default_value: "LazyCat"
+    optional: true
+  - id: max_upload_size_mb
+    type: string
+    name: "Max Upload Size MB"
+    description: "Maximum upload size in MB. Use 0 for unlimited."
+    default_value: "0"
+    optional: true
+  - id: concurrent_jobs
+    type: string
+    name: "Concurrent Jobs"
+    description: "Maximum concurrent jobs. Use 0 for automatic or unlimited behavior."
+    default_value: "0"
+    optional: true
+  - id: max_worker_threads
+    type: string
+    name: "Max Worker Threads"
+    description: "Maximum worker threads. Use 0 for automatic behavior."
+    default_value: "0"
+    optional: true
+locales:
+  zh:
+    admin_username:
+      name: "管理员用户名"
+      description: "本地兜底管理员用户名。"
+    admin_password:
+      name: "管理员密码"
+      description: "本地兜底管理员密码。优先使用 OIDC 登录。"
+    oidc_default_role:
+      name: "OIDC 默认角色"
+      description: "新建 OIDC 用户的角色：admin、editor 或 user。"
+    oidc_provider_name:
+      name: "OIDC 提供方名称"
+      description: "SnapOtter SSO 登录按钮上显示的名称。"
+    max_upload_size_mb:
+      name: "最大上传大小 MB"
+      description: "最大上传大小，单位 MB。0 表示不限制。"
+    concurrent_jobs:
+      name: "并发任务数"
+      description: "最大并发任务数。0 表示自动或不限制。"
+    max_worker_threads:
+      name: "最大工作线程数"
+      description: "最大工作线程数。0 表示自动。"

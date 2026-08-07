@@ -1,0 +1,81 @@
+application:
+  subdomain: snapotter
+  oidc_redirect_path: /api/auth/oidc/callback
+  upstreams:
+    - location: /
+      backend: http://snapotter:1349/
+  injects:
+    - id: open-save-chooser
+      on: browser
+      when:
+        - /*
+      do:
+        - src: file:///lzcapp/pkg/content/lazycat-injects/lzc-file-chooser-inject.js
+          params:
+            diskRoot: /_lzc/files/home
+            locale: auto
+            hooks:
+              fileSystemAccess: true
+              fileInput: true
+
+services:
+  snapotter:
+    # snapotter/snapotter:2.2.0
+    image: snapotter/snapotter:2.2.0
+    environment:
+      - PORT=1349
+      - AUTH_ENABLED=true
+      - DEFAULT_USERNAME={{ .U.admin_username }}
+      - DEFAULT_PASSWORD={{ .U.admin_password }}
+      - SKIP_MUST_CHANGE_PASSWORD=false
+      - STORAGE_MODE=local
+      - WORKSPACE_PATH=/tmp/workspace
+      - FILES_STORAGE_PATH=/data/files
+      - LOG_DIR=/data/logs
+      - MAX_UPLOAD_SIZE_MB={{ .U.max_upload_size_mb }}
+      - CONCURRENT_JOBS={{ .U.concurrent_jobs }}
+      - MAX_WORKER_THREADS={{ .U.max_worker_threads }}
+      - MAX_BATCH_SIZE=0
+      - MAX_MEGAPIXELS=0
+      - PROCESSING_TIMEOUT_S=0
+      - MAX_PIPELINE_STEPS=20
+      - RATE_LIMIT_PER_MIN=1000
+      - MAX_USERS=0
+      - SESSION_DURATION_HOURS=168
+      - TRUST_PROXY=loopback,linklocal,uniquelocal
+      - SNAPOTTER_TELEMETRY=0
+      - OIDC_ENABLED=true
+      - EXTERNAL_URL=https://{{ .S.AppDomain }}
+      - OIDC_ISSUER_URL=${LAZYCAT_AUTH_OIDC_ISSUER_URI}
+      - OIDC_CLIENT_ID=${LAZYCAT_AUTH_OIDC_CLIENT_ID}
+      - OIDC_CLIENT_SECRET=${LAZYCAT_AUTH_OIDC_CLIENT_SECRET}
+      - OIDC_SCOPES=openid profile email
+      - OIDC_AUTO_CREATE_USERS=true
+      - OIDC_DEFAULT_ROLE={{ .U.oidc_default_role }}
+      - OIDC_AUTO_LINK_USERS=false
+      - OIDC_PROVIDER_NAME={{ .U.oidc_provider_name }}
+      - OIDC_USERNAME_CLAIM=preferred_username
+      - OIDC_CLOCK_TOLERANCE=30
+      - COOKIE_SECRET={{ stable_secret "cookie_secret" }}
+    binds:
+      - /lzcapp/var/data:/data
+      - /lzcapp/cache/workspace:/tmp/workspace
+    mem_limit: 6g
+    cpus: 4
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - -sf
+        - --max-time
+        - "5"
+        - http://localhost:1349/api/v1/health
+      interval: 30s
+      timeout: 5s
+      start_period: 60s
+      retries: 3
+    shm_size: 2gb
+
+usage: |
+  Open SnapOtter from the launcher and use Sign in with SSO.
+  The local admin account is still created as a fallback from the setup wizard username and password.
