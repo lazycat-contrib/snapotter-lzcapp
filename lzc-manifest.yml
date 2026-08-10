@@ -78,3 +78,7 @@ services:
 usage: |
   Open SnapOtter from the launcher and use Sign in with SSO.
   The local admin account is still created as a fallback from the setup wizard username and password.
+
+  中文说明：
+  从启动器打开 SnapOtter，然后选择“使用 SSO 登录”。
+  安装向导中设置的用户名和密码仍会用于创建本地管理员账户，可在 SSO 不可用时作为备用登录方式。
