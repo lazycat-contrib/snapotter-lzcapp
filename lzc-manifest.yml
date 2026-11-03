@@ -20,8 +20,8 @@ application:
 services:
   snapotter:
     # snapotter/snapotter:2.2.0
-    # upstream: snapotter/snapotter:2.2.0
-    image: registry.lazycat.cloud/czyt/snapotter/snapotter:bbee87b874c21bd6
+    # upstream: snapotter/snapotter:2.3.0
+    image: registry.lazycat.cloud/czyt/snapotter/snapotter:a4f4d9c183601f65
     environment:
       - PORT=1349
       - AUTH_ENABLED=true

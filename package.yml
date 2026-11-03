@@ -1,5 +1,5 @@
 package: community.lazycat.app.snapotter
-version: 2.2.0
+version: 2.3.0
 name: SnapOtter
 description: Self-hosted file-processing suite for images, video, audio, PDFs, documents, OCR, transcription, and local AI tools.
 author: snapotter-hq
